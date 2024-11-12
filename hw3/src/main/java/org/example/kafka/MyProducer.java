@@ -3,6 +3,8 @@ package org.example.kafka;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
@@ -10,8 +12,6 @@ public class MyProducer {
     public static final String TEST_1 = "test1";
     public static final String TEST_2 = "test2";
     private static final String SERVER_CONFIG = "localhost:9091";
-    private static final String KEY_SERIALIZER_CLASS_CONFIG_VALUE = "org.apache.kafka.common.serialization.StringSerializer";
-    private static final String VALUE_SERIALIZER_CLASS_CONFIG_VALUE = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String TRANSACTIONAL_ID = "hw3";
     private static final String SUCCESS_KEY = "success key: ";
     private static final String FAILURE_KEY = "failure key: ";
@@ -23,8 +23,8 @@ public class MyProducer {
         Properties props = new Properties();
 
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, SERVER_CONFIG);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, KEY_SERIALIZER_CLASS_CONFIG_VALUE);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, VALUE_SERIALIZER_CLASS_CONFIG_VALUE);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, TRANSACTIONAL_ID);
         var producer = new KafkaProducer<>(props);
 
